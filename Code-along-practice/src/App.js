@@ -1,13 +1,15 @@
 // import React, { useState } from "react";
 import React, { Component } from "react";
 import "./App.css";
+import Radium, { StyleRoot } from "radium";
 import Person from "./Person/Person";
 
 class App extends Component {
   state = {
     persons: [
-      { id: "akdhkajs", name: "Sigita", age: 29 },
-      { id: "sdfsdfsdf", name: "Deividas", age: 35 },
+      { id: "akdhkajs", name: "Tom", age: 29 },
+      { id: "sdfsdfsdf", name: "Laura", age: 35 },
+      { id: "adadaf", name: "Vean", age: 18 },
     ],
     showPersons: false,
   };
@@ -42,11 +44,16 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor: "white",
+      backgroundColor: "green",
+      color: "white",
       font: "inherit",
       border: "1px solid blue",
       padding: "8px",
       cursor: "pointer",
+      ":hover": {
+        backgroundColor: "lightgreen",
+        color: "black",
+      },
     };
 
     let persons = null;
@@ -67,21 +74,38 @@ class App extends Component {
           })}
         </div>
       );
+
+      style.backgroundColor = "red";
+      style[":hover"] = {
+        backgroundColor: "salmon",
+        color: "black",
+      };
+    }
+
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push("red");
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push("bold");
     }
 
     return (
-      <div className="App">
-        <h1>Hello</h1>
-        <button style={style} onClick={this.togglePersonsHandler}>
-          Toggle persons
-        </button>
-        {persons}
-      </div>
+      <StyleRoot>
+        <div className="App">
+          <h1>Hello</h1>
+          <p className={classes.join(" ")}>This is working.</p>
+          <button style={style} onClick={this.togglePersonsHandler}>
+            Toggle persons
+          </button>
+          {persons}
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
 
 // const App = (props) => {
 //   const [personsState, setPersonsState] = useState({
