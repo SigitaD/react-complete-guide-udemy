@@ -1,8 +1,22 @@
-// import React, { useState } from "react";
 import React, { Component } from "react";
+import styled from "styled-components";
+
 import "./App.css";
-import Radium, { StyleRoot } from "radium";
 import Person from "./Person/Person";
+
+const StyledButton = styled.button`
+  background-color: ${(props) => (props.altStyle ? "red" : "green")};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => (props.altStyle ? "salmon" : "lightgreen")};
+    color: black;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -74,12 +88,6 @@ class App extends Component {
           })}
         </div>
       );
-
-      style.backgroundColor = "red";
-      style[":hover"] = {
-        backgroundColor: "salmon",
-        color: "black",
-      };
     }
 
     const classes = [];
@@ -91,55 +99,19 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1>Hello</h1>
-          <p className={classes.join(" ")}>This is working.</p>
-          <button style={style} onClick={this.togglePersonsHandler}>
-            Toggle persons
-          </button>
-          {persons}
-        </div>
-      </StyleRoot>
+      <div className="App">
+        <h1>Hello</h1>
+        <p className={classes.join(" ")}>This is working.</p>
+        <StyledButton
+          altStyle={this.state.showPersons}
+          onClick={this.togglePersonsHandler}
+        >
+          Toggle persons
+        </StyledButton>
+        {persons}
+      </div>
     );
   }
 }
 
-export default Radium(App);
-
-// const App = (props) => {
-//   const [personsState, setPersonsState] = useState({
-//     persons: [
-//       { name: "Sigita", age: 29 },
-//       { name: "Deividas", age: 35 },
-//     ],
-//   });
-
-//   const switchNameHandler = () => {
-//     setPersonsState({
-//       persons: [
-//         { name: "Sigitux", age: 14 },
-//         { name: "Deividux", age: 12 },
-//       ],
-//     });
-//   };
-
-//   return (
-//     <div className="App">
-//       <h1>Hello</h1>
-//       <button onClick={switchNameHandler}>Switch name</button>
-//       <Person
-//         name={personsState.persons[0].name}
-//         age={personsState.persons[0].age}
-//       />
-//       <Person
-//         name={personsState.persons[1].name}
-//         age={personsState.persons[1].age}
-//       >
-//         My hobbies: IT.
-//       </Person>
-//     </div>
-//   );
-// };
-
-// export default App;
+export default App;
