@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./Cockpit.module.css";
 
-const cockpit = ({ persons, showPersons, clicked }) => {
+const cockpit = ({ persons, showPersons, title, clicked }) => {
   const classes = [];
   let btnClass = "";
   if (showPersons) {
@@ -18,7 +18,7 @@ const cockpit = ({ persons, showPersons, clicked }) => {
 
   return (
     <div className={styles.cockpit}>
-      <h1>Hello</h1>
+      <h1>{title}</h1>
       <p className={classes.join(" ")}>This is working.</p>
       <button className={btnClass} onClick={clicked}>
         Toggle persons
